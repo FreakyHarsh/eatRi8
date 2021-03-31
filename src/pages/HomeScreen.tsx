@@ -48,10 +48,10 @@ export const HomeScreen = () => {
     <div style={{ height: "100vh" }}>
       <div className={classes.bg}>
         <Box display='flex' justifyContent='center' alignItems='center' style={{ height: "100%" }}>
-          <Card style={{ maxWidth: "70%" }}>
+          <Card className={classes.cardWidth}>
             <CardContent className={classes.card}>
               <Formik
-                initialValues={{ height: undefined, weight: undefined, age: 20 }}
+                initialValues={{ height: 130, weight: 40, age: 20 }}
                 onSubmit={(data) => onSubmit(data)}
                 validationSchema={yupSchema}
               >
@@ -66,6 +66,7 @@ export const HomeScreen = () => {
                       placeholder='Height in cm'
                       helperText={errors.height}
                       error={!!errors.height}
+                      style={{ marginTop: "10px" }}
                     />
                     <Field
                       name='weight'
@@ -128,6 +129,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     opacity: 0.95,
     borderRadius: 5,
+  },
+  cardWidth: {
+    [theme.breakpoints.down("md")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "30%",
+    },
   },
 }));
 

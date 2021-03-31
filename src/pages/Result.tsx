@@ -37,7 +37,7 @@ const getRecipe = (search: string) => {
 export const Result = () => {
   const {
     state: {
-      bmi: { bmi, health },
+      bmi: { bmi },
     },
   } = useLocation<any>();
 
