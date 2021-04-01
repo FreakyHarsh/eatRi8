@@ -24,24 +24,9 @@ export const HomeScreen = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const onSubmit = async (data: any) => {
-    const bmi = await fetch(baseURL + "/bmi", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
-        return response;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const onSubmit = (data: any) => {
+    const { height, weight, age } = data;
+    const bmi = ((weight * 10000) / Math.pow(height, 2)).toFixed(2);
     history.push({ pathname: "./plan", state: { bmi } });
   };
   return (

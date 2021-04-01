@@ -13,77 +13,71 @@ import { useLocation } from "react-router";
 
 import { BmiInfo } from "../component/BmiInfo";
 import { Recipe } from "../component/Recipe";
-
-const getRecipe = (search: string) => {
-  return fetch(baseURL + "/recipe", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ search }),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      console.log(response);
-      return response.hits;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+import brownBread from "../utils/brownbread";
+import brownRice from "../utils/brownrice";
+import chicken from "../utils/chicken";
+import dryFruits from "../utils/dryfruits";
+import eggs from "../utils/eggs";
+import flattenedRice from "../utils/flattenedrice";
+import fruits from "../utils/fruits";
+import oats from "../utils/oats";
+import paneer from "../utils/paneer";
+import salad from "../utils/salad";
+import tofu from "../utils/tofu";
 
 export const Result = () => {
-  const {
-    state: {
-      bmi: { bmi },
-    },
-  } = useLocation<any>();
-
+  const location = useLocation<any>();
+  const bmi = location.state.bmi;
+  console.log(bmi);
   const classes = useStyles();
-  const b = ["oats", "eggs", "dry fruits", "flattened rice"];
-  const l = ["salad", "fruits", "chicken", "brown bread", "eggs"];
-  const d = ["paneer", "tofu", "brown rice", "salad"];
+  const b = ["oats", "eggs", "dryFruits", "flattenedRice"];
+  const l = ["salad", "fruits", "chicken", "brownBread", "eggs"];
+  const d = ["paneer", "tofu", "brownRice", "salad"];
   const [breakfast, setBreakfast] = useState<any>();
   const [lunch, setLunch] = useState<any>();
   const [dinner, setDinner] = useState<any>();
 
+  const bkft: any = {
+    oats,
+    eggs,
+    dryFruits,
+    flattenedRice,
+  };
+  const lch: any = {
+    salad,
+    fruits,
+    chicken,
+    brownBread,
+    eggs,
+  };
+  const dnr: any = {
+    paneer,
+    tofu,
+    brownRice,
+    salad,
+  };
+  const getRandomIndex = (length: number) => Math.floor(Math.random() * length);
+
   useEffect(() => {
-    const getBreakfast = async () => {
-      const randomBreakfastIngredient = b[Math.round(Math.random() * b.length)];
-      const res = await getRecipe(randomBreakfastIngredient);
-      setBreakfast([
-        res[Math.round(Math.random() * 10)].recipe,
-        res[Math.round(Math.random() * 10)].recipe,
-      ]);
+    const getBreakfast = () => {
+      const bk1 = bkft[b[getRandomIndex(b.length)]][getRandomIndex(10)];
+      const bk2 = bkft[b[getRandomIndex(b.length)]][getRandomIndex(10)];
+      setBreakfast([bk1, bk2]);
+    };
+    const getLunch = () => {
+      const l1 = lch[l[getRandomIndex(l.length)]][getRandomIndex(10)];
+      const l2 = lch[l[getRandomIndex(l.length)]][getRandomIndex(10)];
+      setLunch([l1, l2]);
+    };
+    const getDinner = () => {
+      const d1 = dnr[d[getRandomIndex(d.length)]][getRandomIndex(10)];
+      const d2 = dnr[d[getRandomIndex(d.length)]][getRandomIndex(10)];
+      setDinner([d1, d2]);
     };
     getBreakfast();
-  }, []);
-  useEffect(() => {
-    const getLunch = async () => {
-      const randomLunchIngredient = l[Math.round(Math.random() * b.length)];
-      const res = await getRecipe(randomLunchIngredient);
-      setLunch([
-        res[Math.round(Math.random() * 10)].recipe,
-        res[Math.round(Math.random() * 10)].recipe,
-      ]);
-    };
     getLunch();
-  }, []);
-  useEffect(() => {
-    const getDinner = async () => {
-      const randomDinnerIngredient = d[Math.round(Math.random() * b.length)];
-      console.log(randomDinnerIngredient);
-      const res = await getRecipe(randomDinnerIngredient);
-      setBreakfast([
-        res[Math.round(Math.random() * 10)].recipe,
-        res[Math.round(Math.random() * 10)].recipe,
-      ]);
-    };
     getDinner();
   }, []);
-
   useEffect(() => {
     console.log("breakfast", breakfast);
     console.log("lunch", lunch);
@@ -109,7 +103,7 @@ export const Result = () => {
             style={{ marginLeft: "1.5rem" }}
           >
             <div className={classes.bmiCardRow}>
-              Bmi: {parseInt(bmi)} kg/m2
+              Bmi: {bmi} kg/m2
               <span style={{ marginLeft: "auto" }}>
                 <BmiInfo />
               </span>
@@ -125,7 +119,11 @@ export const Result = () => {
             <CardHeader title='Breakfast' />
             <CardContent className={classes.cardContent}>
               {breakfast?.map((item: any) => (
-                <Recipe name={item.label} imageUrl={item.image} recipeUrl={item.url} />
+                <Recipe
+                  name={item.recipe.label}
+                  imageUrl={item.recipe.image}
+                  recipeUrl={item.recipe.url}
+                />
               ))}
             </CardContent>
           </Card>
@@ -136,7 +134,11 @@ export const Result = () => {
             <CardHeader title='Lunch' />
             <CardContent className={classes.cardContent}>
               {lunch?.map((item: any) => (
-                <Recipe name={item.label} imageUrl={item.image} recipeUrl={item.url} />
+                <Recipe
+                  name={item.recipe.label}
+                  imageUrl={item.recipe.image}
+                  recipeUrl={item.recipe.url}
+                />
               ))}
             </CardContent>
           </Card>
@@ -146,7 +148,11 @@ export const Result = () => {
             <CardHeader title='Dinner' />
             <CardContent className={classes.cardContent}>
               {dinner?.map((item: any) => (
-                <Recipe name={item.label} imageUrl={item.image} recipeUrl={item.url} />
+                <Recipe
+                  name={item.recipe.label}
+                  imageUrl={item.recipe.image}
+                  recipeUrl={item.recipe.url}
+                />
               ))}
             </CardContent>
           </Card>
