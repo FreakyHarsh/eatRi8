@@ -5387,10 +5387,10 @@ export default [
   {
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_db1dda0c057461fa2eb49211bbfd4f4b",
-      "label": "Washing up free salad",
-      "image": "https://www.edamam.com/web-img/5f4/5f4e0c670a283159486de0b6d3e04284.jpg",
+      "label": "Chicken salad",
+      "image": "https://cafedelites.com/wp-content/uploads/2016/07/Lemon-Herb-Mediterranean-Chicken-Salad-208.jpg",
       "source": "The Stone Soup",
-      "url": "http://thestonesoup.com/blog/2011/01/reduce-reuse-recycle-how-the-3rs-can-help-you-with-the-washing-up/",
+      "url": "https://cafedelites.com/grilled-lemon-herb-mediterranean-chicken-salad-recipe/",
       "shareAs": "http://www.edamam.com/recipe/washing-up-free-salad-db1dda0c057461fa2eb49211bbfd4f4b/salad",
       "yield": 1,
       "dietLabels": [

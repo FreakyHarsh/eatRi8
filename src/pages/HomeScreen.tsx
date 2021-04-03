@@ -76,8 +76,7 @@ export const HomeScreen = () => {
     }
     bmr = bmr.toFixed(2);
     const bmi = ((weight * 10000) / Math.pow(height, 2)).toFixed(2);
-    console.log(bmi, bmr);
-    history.push({ pathname: "./plan", state: { bmi, bmr } });
+    history.push({ pathname: "./plan", state: { bmi, bmr, exercise } });
   };
   return (
     <div style={{ height: "100vh" }}>
@@ -108,7 +107,7 @@ export const HomeScreen = () => {
                       as={TextField}
                       type='number'
                       variant='outlined'
-                      label='Weight(cm)'
+                      label='Weight(kg)'
                       placeholder="Weight in kg's"
                       helperText={errors.weight}
                       error={!!errors.weight}

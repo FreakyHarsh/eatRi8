@@ -3572,8 +3572,8 @@ export default [
   {
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_6c13e8a9a2423d23e5a6ce3fafc2efd4",
-      "label": "How To Make Classic Chicken Marsala at Home",
-      "image": "https://www.edamam.com/web-img/207/20771991d2f9fcd2d36dfcd7a87703e5",
+      "label": "Classic Chicken Marsala",
+      "image": "https://entertainingwithbeth.com/wp-content/uploads/2020/03/ChickenMarsla_HERO2-copy.jpg",
       "source": "The Kitchn",
       "url": "http://www.thekitchn.com/how-to-make-classic-chicken-marsala-the-easiest-method-241844",
       "shareAs": "http://www.edamam.com/recipe/how-to-make-classic-chicken-marsala-at-home-6c13e8a9a2423d23e5a6ce3fafc2efd4/flattened+rice",
@@ -4997,8 +4997,8 @@ export default [
   {
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_0aeb6e53199c5f6e6b4b858612e29b43",
-      "label": "How To Cook Moist & Tender Chicken Breasts Every Time",
-      "image": "https://www.edamam.com/web-img/770/770f1f9db65c418ff5e76edbb35222c8",
+      "label": "Tender Chicken Breasts",
+      "image": "http://www.karlacadeau.com/wp-content/uploads/2017/05/IMG_7967a-e1499002936955.jpg",
       "source": "The Kitchn",
       "url": "http://www.thekitchn.com/how-to-cook-moist-tender-chicken-breasts-every-time-cooking-lessons-from-the-kitchn-36891",
       "shareAs": "http://www.edamam.com/recipe/how-to-cook-moist-tender-chicken-breasts-every-time-0aeb6e53199c5f6e6b4b858612e29b43/flattened+rice",

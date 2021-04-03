@@ -29,7 +29,28 @@ export const Result = () => {
   const location = useLocation<any>();
   const bmi = location.state.bmi;
   const bmr = location.state.bmr;
-  console.log(bmi);
+  const exerciseType = location.state.exercise;
+  let multiplierBasedOnExercise: number;
+  switch (exerciseType) {
+    case "no":
+      multiplierBasedOnExercise = 1.2;
+      break;
+    case "little":
+      multiplierBasedOnExercise = 1.375;
+      break;
+    case "moderate":
+      multiplierBasedOnExercise = 1.55;
+      break;
+    case "heavy":
+      multiplierBasedOnExercise = 1.725;
+      break;
+    case "veryHeavy":
+      multiplierBasedOnExercise = 1.9;
+      break;
+    default:
+      multiplierBasedOnExercise = 1.2;
+      break;
+  }
   const classes = useStyles();
   const b = ["oats", "eggs", "dryFruits", "flattenedRice"];
   const l = ["salad", "fruits", "chicken", "brownBread", "eggs"];
@@ -79,11 +100,6 @@ export const Result = () => {
     getLunch();
     getDinner();
   }, []);
-  useEffect(() => {
-    console.log("breakfast", breakfast);
-    console.log("lunch", lunch);
-    console.log("dinner", dinner);
-  }, [breakfast, lunch, dinner]);
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -110,7 +126,7 @@ export const Result = () => {
               </span>
             </div>
             <div className={classes.bmiCardRow}>
-              Calories: {(parseFloat(bmr) * 1.2).toFixed(2)} cal
+              Calories: {(parseFloat(bmr) * multiplierBasedOnExercise).toFixed(2)} cal
             </div>
           </Box>
         </Box>
