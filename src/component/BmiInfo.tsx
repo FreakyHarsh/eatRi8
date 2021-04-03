@@ -53,7 +53,7 @@ export const BmiInfo = () => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  icon: { fontSize: "1rem", marginLeft: "auto" },
+  icon: { fontSize: "1.5rem", marginLeft: "auto" },
   popover: {
     pointerEvents: "none",
   },

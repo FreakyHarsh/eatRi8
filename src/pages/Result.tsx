@@ -28,6 +28,7 @@ import tofu from "../utils/tofu";
 export const Result = () => {
   const location = useLocation<any>();
   const bmi = location.state.bmi;
+  const bmr = location.state.bmr;
   console.log(bmi);
   const classes = useStyles();
   const b = ["oats", "eggs", "dryFruits", "flattenedRice"];
@@ -108,7 +109,9 @@ export const Result = () => {
                 <BmiInfo />
               </span>
             </div>
-            <div className={classes.bmiCardRow}>Calories: {parseInt(bmi) * 1.2 * 100} cal</div>
+            <div className={classes.bmiCardRow}>
+              Calories: {(parseFloat(bmr) * 1.2).toFixed(2)} cal
+            </div>
           </Box>
         </Box>
       </Card>

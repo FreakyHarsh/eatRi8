@@ -6417,7 +6417,7 @@ export default [
   {
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_6a860a30af34edea654ed53a4d5dca93",
-      "label": "&quot;Cat&quot; cookies with sesame and olive oil",
+      "label": "Cookies with sesame and olive oil",
       "image": "https://www.edamam.com/web-img/606/606bb6c711bc3f1401e1c935946f5c24.jpg",
       "source": "Food52",
       "url": "https://food52.com/recipes/26535-cat-cookies-with-sesame-and-olive-oil",

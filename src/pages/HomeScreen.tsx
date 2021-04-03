@@ -3,7 +3,12 @@ import {
   Button,
   Card,
   CardContent,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
   makeStyles,
+  Radio,
+  Select,
   Slider,
   TextField,
   Theme,
@@ -11,10 +16,47 @@ import {
   withStyles,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Field, Form, Formik } from "formik";
+import { Field, FieldAttributes, Form, Formik, useField } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import * as yup from "yup";
+
+type MyRadioProps = { label: string } & FieldAttributes<{}>;
+type MySelectProps = FieldAttributes<{}>;
+
+const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
+  const [field] = useField<{}>(props);
+  return (
+    <FormControlLabel
+      {...field}
+      control={<Radio color='primary' style={{ fontSize: ".8rem" }} />}
+      label={label}
+    />
+  );
+};
+
+const MySelect: React.FC = ({ ...props }) => {
+  const [field] = useField(props as any);
+  return (
+    <FormControl variant='outlined' {...field}>
+      <InputLabel htmlFor='exercise'>Exercise</InputLabel>
+      <Select
+        native
+        label='Exercise'
+        inputProps={{
+          name: "exercise",
+          id: "exercise",
+        }}
+      >
+        <option value='no'>No exercise</option>
+        <option value='little'>1-3 Days/Week</option>
+        <option value='moderate'>3-5 Days/Week</option>
+        <option value='heavy'>6-7 Days/Week</option>
+        <option value='veryHeavy'>Twice per day</option>
+      </Select>
+    </FormControl>
+  );
+};
 
 const yupSchema = yup.object({
   height: yup.number().required().min(130).max(230),
@@ -25,9 +67,17 @@ export const HomeScreen = () => {
   const history = useHistory();
 
   const onSubmit = (data: any) => {
-    const { height, weight, age } = data;
+    const { height, weight, age, gender, exercise } = data;
+    let bmr;
+    if (gender === "male") {
+      bmr = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
+    } else {
+      bmr = 447.593 + 9.247 * weight + 3.099 * height - 4.33 * age;
+    }
+    bmr = bmr.toFixed(2);
     const bmi = ((weight * 10000) / Math.pow(height, 2)).toFixed(2);
-    history.push({ pathname: "./plan", state: { bmi } });
+    console.log(bmi, bmr);
+    history.push({ pathname: "./plan", state: { bmi, bmr } });
   };
   return (
     <div style={{ height: "100vh" }}>
@@ -36,7 +86,7 @@ export const HomeScreen = () => {
           <Card className={classes.cardWidth}>
             <CardContent className={classes.card}>
               <Formik
-                initialValues={{ height: 130, weight: 40, age: 20 }}
+                initialValues={{ height: 130, weight: 40, age: 20, exercise: "no", gender: "male" }}
                 onSubmit={(data) => onSubmit(data)}
                 validationSchema={yupSchema}
               >
@@ -63,6 +113,19 @@ export const HomeScreen = () => {
                       helperText={errors.weight}
                       error={!!errors.weight}
                     />
+                    <Box
+                      display='flex'
+                      justifyContent='space-between'
+                      alignItems='center'
+                      className={classes.gender}
+                    >
+                      <Typography style={{ color: "#7F8787" }}>Gender:</Typography>
+                      <MyRadio name='gender' type='radio' value='male' label='Male' />
+                      <MyRadio name='gender' type='radio' value='female' label='Female' />
+                    </Box>
+
+                    <MySelect />
+
                     <div style={{ padding: "0 5px" }}>
                       <Typography style={{ color: "#7F8787" }}>Age: {values.age}</Typography>
                       <PrettoSlider
@@ -73,6 +136,7 @@ export const HomeScreen = () => {
                         onChange={(event, value) => setFieldValue("age", value)}
                       />
                     </div>
+
                     <Button
                       style={{ color: "white" }}
                       variant='contained'
@@ -106,6 +170,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: "100%",
     backgroundPosition: "center",
     backgroundSize: "cover",
+  },
+  gender: {
+    "& label": {
+      margin: 0,
+      "& span": {
+        fontSize: ".9rem",
+        color: "#52af77",
+        fontWeight: 700,
+      },
+    },
   },
   card: {
     "& form": { display: "flex", flexDirection: "column", gap: "1rem" },
