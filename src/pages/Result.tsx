@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { BmiInfo } from "../component/BmiInfo";
+import CaloriesTable from "../component/CaloriesTable";
 import { Recipe } from "../component/Recipe";
 import brownBread from "../utils/brownbread";
 import brownRice from "../utils/brownrice";
@@ -104,7 +105,9 @@ export const Result = () => {
   return (
     <div style={{ padding: "1rem" }}>
       <Box display='flex' justifyContent='center'>
-        <Typography style={{ fontSize: "2rem" }}>Today's Meal Plan 🍴</Typography>
+        <Typography style={{ fontSize: "2rem", fontFamily: "Dancing Script" }}>
+          Today's Meal Plan 🍴
+        </Typography>
       </Box>
 
       <Card style={{ padding: "1rem", margin: "1rem 0 2rem 0" }}>
@@ -120,13 +123,18 @@ export const Result = () => {
             style={{ marginLeft: "1.5rem" }}
           >
             <div className={classes.bmiCardRow}>
-              Bmi: {bmi} kg/m2
+              <span>
+                <span style={{ fontWeight: "bold", letterSpacing: 1 }}>BMI:</span> {bmi} kg/m2
+              </span>
               <span style={{ marginLeft: "auto" }}>
-                <BmiInfo />
+                <BmiInfo bmr={parseFloat(bmr)} />
               </span>
             </div>
             <div className={classes.bmiCardRow}>
-              Calories: {(parseFloat(bmr) * multiplierBasedOnExercise).toFixed(2)} cal
+              <span>
+                <span style={{ fontWeight: "bold", letterSpacing: 1 }}>CALORIES:</span>{" "}
+                {(parseFloat(bmr) * multiplierBasedOnExercise).toFixed(2)} Kcal/day
+              </span>
             </div>
           </Box>
         </Box>
@@ -134,7 +142,7 @@ export const Result = () => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card className={classes.card}>
             <CardHeader title='Breakfast' />
             <CardContent className={classes.cardContent}>
               {breakfast?.map((item: any) => (
@@ -149,7 +157,7 @@ export const Result = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card className={classes.card}>
             <CardHeader title='Lunch' />
             <CardContent className={classes.cardContent}>
               {lunch?.map((item: any) => (
@@ -163,7 +171,7 @@ export const Result = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card className={classes.card}>
             <CardHeader title='Dinner' />
             <CardContent className={classes.cardContent}>
               {dinner?.map((item: any) => (
@@ -187,4 +195,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
   },
   cardContent: { paddingTop: 0, gridGap: "1rem", display: "grid" },
+  card: {
+    "& span": {
+      fontFamily: "Dancing Script",
+    },
+  },
 }));

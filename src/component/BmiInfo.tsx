@@ -1,8 +1,9 @@
-import { Popover, makeStyles, Theme } from "@material-ui/core";
+import { Popover, makeStyles, Theme, Grid } from "@material-ui/core";
 import React from "react";
 import InfoIcon from "@material-ui/icons/Info";
+import CaloriesTable from "./CaloriesTable";
 
-export const BmiInfo = () => {
+export const BmiInfo = ({ bmr }: { bmr: number }) => {
   const [bmiInfo, setBmiInfo] = React.useState<HTMLElement | null>(null);
 
   const handleBmiInfoOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -44,9 +45,16 @@ export const BmiInfo = () => {
         onClose={handleBmiInfoClose}
         disableRestoreFocus
       >
-        <div className={classes.imageContainer}>
-          <img src='/bmichart.png' width='100%' />
-        </div>
+        {/* <div className={classes.imageContainer}> */}
+        <Grid container>
+          <Grid item xs={12}>
+            <img src='/bmichart.png' width='100%' />
+          </Grid>
+          <Grid item xs={12}>
+            <CaloriesTable bmr={bmr} />
+          </Grid>
+        </Grid>
+        {/* </div> */}
       </Popover>
     </>
   );
@@ -56,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   icon: { fontSize: "1.5rem", marginLeft: "auto" },
   popover: {
     pointerEvents: "none",
+    textAlign: "center",
   },
   paper: {
     padding: theme.spacing(1),
