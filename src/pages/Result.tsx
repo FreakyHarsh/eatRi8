@@ -8,11 +8,12 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { BmiInfo } from "../component/BmiInfo";
 import CaloriesTable from "../component/CaloriesTable";
+import { Loader } from "../component/Loader";
 import { Recipe } from "../component/Recipe";
 import brownBread from "../utils/brownbread";
 import brownRice from "../utils/brownrice";
@@ -59,6 +60,7 @@ export const Result = () => {
   const [breakfast, setBreakfast] = useState<any>();
   const [lunch, setLunch] = useState<any>();
   const [dinner, setDinner] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const bkft: any = {
     oats,
@@ -80,7 +82,6 @@ export const Result = () => {
     salad,
   };
   const getRandomIndex = (length: number) => Math.floor(Math.random() * length);
-
   useEffect(() => {
     const getBreakfast = () => {
       const bk1 = bkft[b[getRandomIndex(b.length)]][getRandomIndex(10)];
@@ -102,90 +103,102 @@ export const Result = () => {
     getDinner();
   }, []);
 
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
   return (
-    <div style={{ padding: "1rem" }}>
-      <Box display='flex' justifyContent='center'>
-        <Typography style={{ fontSize: "2rem", fontFamily: "Dancing Script" }}>
-          Today's Meal Plan 🍴
-        </Typography>
-      </Box>
-
-      <Card style={{ padding: "1rem", margin: "1rem 0 2rem 0" }}>
-        <Box display='flex' justifyContent='space-around'>
-          <div style={{ width: "3rem" }}>
-            <img src='/calories.png' width='100%' />
-          </div>
-          <Box
-            display='flex'
-            flexDirection='column'
-            justifyContent='space-around'
-            width='100%'
-            style={{ marginLeft: "1.5rem" }}
-          >
-            <div className={classes.bmiCardRow}>
-              <span>
-                <span style={{ fontWeight: "bold", letterSpacing: 1 }}>BMI:</span> {bmi} kg/m2
-              </span>
-              <span style={{ marginLeft: "auto" }}>
-                <BmiInfo bmr={parseFloat(bmr)} />
-              </span>
-            </div>
-            <div className={classes.bmiCardRow}>
-              <span>
-                <span style={{ fontWeight: "bold", letterSpacing: 1 }}>CALORIES:</span>{" "}
-                {(parseFloat(bmr) * multiplierBasedOnExercise).toFixed(2)} Kcal/day
-              </span>
-            </div>
+    <>
+      {!isLoading ? (
+        <div style={{ padding: "1rem" }}>
+          <Box display='flex' justifyContent='center'>
+            <Typography style={{ fontSize: "2rem", fontFamily: "Dancing Script" }}>
+              Today's Meal Plan 🍴
+            </Typography>
           </Box>
-        </Box>
-      </Card>
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
-          <Card className={classes.card}>
-            <CardHeader title='Breakfast' />
-            <CardContent className={classes.cardContent}>
-              {breakfast?.map((item: any) => (
-                <Recipe
-                  name={item.recipe.label}
-                  imageUrl={item.recipe.image}
-                  recipeUrl={item.recipe.url}
-                />
-              ))}
-            </CardContent>
+          <Card style={{ padding: "1rem", margin: "1rem 0 2rem 0" }}>
+            <Box display='flex' justifyContent='space-around'>
+              <div style={{ width: "3rem" }}>
+                <img src='/calories.png' width='100%' />
+              </div>
+              <Box
+                display='flex'
+                flexDirection='column'
+                justifyContent='space-around'
+                width='100%'
+                style={{ marginLeft: "1.5rem" }}
+              >
+                <div className={classes.bmiCardRow}>
+                  <span>
+                    <span style={{ fontWeight: "bold", letterSpacing: 1 }}>BMI:</span> {bmi} kg/m2
+                  </span>
+                  <span style={{ marginLeft: "auto" }}>
+                    <BmiInfo bmr={parseFloat(bmr)} />
+                  </span>
+                </div>
+                <div className={classes.bmiCardRow}>
+                  <span>
+                    <span style={{ fontWeight: "bold", letterSpacing: 1 }}>CALORIES:</span>{" "}
+                    {(parseFloat(bmr) * multiplierBasedOnExercise).toFixed(2)} Kcal/day
+                  </span>
+                </div>
+              </Box>
+            </Box>
           </Card>
-        </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Card className={classes.card}>
-            <CardHeader title='Lunch' />
-            <CardContent className={classes.cardContent}>
-              {lunch?.map((item: any) => (
-                <Recipe
-                  name={item.recipe.label}
-                  imageUrl={item.recipe.image}
-                  recipeUrl={item.recipe.url}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card className={classes.card}>
-            <CardHeader title='Dinner' />
-            <CardContent className={classes.cardContent}>
-              {dinner?.map((item: any) => (
-                <Recipe
-                  name={item.recipe.label}
-                  imageUrl={item.recipe.image}
-                  recipeUrl={item.recipe.url}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </div>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Card className={classes.card}>
+                <CardHeader title='Breakfast' />
+                <CardContent className={classes.cardContent}>
+                  {breakfast?.map((item: any) => (
+                    <Recipe
+                      name={item.recipe.label}
+                      imageUrl={item.recipe.image}
+                      recipeUrl={item.recipe.url}
+                    />
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <Card className={classes.card}>
+                <CardHeader title='Lunch' />
+                <CardContent className={classes.cardContent}>
+                  {lunch?.map((item: any) => (
+                    <Recipe
+                      name={item.recipe.label}
+                      imageUrl={item.recipe.image}
+                      recipeUrl={item.recipe.url}
+                    />
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card className={classes.card}>
+                <CardHeader title='Dinner' />
+                <CardContent className={classes.cardContent}>
+                  {dinner?.map((item: any) => (
+                    <Recipe
+                      name={item.recipe.label}
+                      imageUrl={item.recipe.image}
+                      recipeUrl={item.recipe.url}
+                    />
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </div>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 
