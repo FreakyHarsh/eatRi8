@@ -1967,8 +1967,8 @@ export default [
   {
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_75e5b96dc66f0f518b84553a7138d0ff",
-      "label": "How To Cook Brown Rice",
-      "image": "https://www.edamam.com/web-img/370/370c76d7e00caaba2d3c7bbdf068e50c",
+      "label": "Brown Rice",
+      "image": "https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fit,w_730,h_1022/k%2Farchive%2Fcbceb91fd31d951343d7060a31a4d3014d6a5cf2",
       "source": "The Kitchn",
       "url": "http://www.thekitchn.com/how-to-cook-brown-rice-113856",
       "shareAs": "http://www.edamam.com/recipe/how-to-cook-brown-rice-75e5b96dc66f0f518b84553a7138d0ff/brown+rice",

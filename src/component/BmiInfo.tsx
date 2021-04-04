@@ -1,10 +1,12 @@
 import { Popover, makeStyles, Theme, Grid } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import InfoIcon from "@material-ui/icons/Info";
 import CaloriesTable from "./CaloriesTable";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 export const BmiInfo = ({ bmr }: { bmr: number }) => {
-  const [bmiInfo, setBmiInfo] = React.useState<HTMLElement | null>(null);
+  const [bmiInfo, setBmiInfo] = useState<HTMLElement | null>(null);
+  const [imgLoader, setImgLoader] = useState(true);
 
   const handleBmiInfoOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     setBmiInfo(event.currentTarget);
@@ -45,16 +47,31 @@ export const BmiInfo = ({ bmr }: { bmr: number }) => {
         onClose={handleBmiInfoClose}
         disableRestoreFocus
       >
-        {/* <div className={classes.imageContainer}> */}
         <Grid container>
-          <Grid item xs={12}>
-            <img src='/bmichart.png' width='100%' />
+          <Grid item xs={12} style={{ position: "relative" }}>
+            <Skeleton
+              variant='rect'
+              width={"100%"}
+              height={"100%"}
+              style={{ borderRadius: 10, position: "absolute" }}
+            />
+            <img
+              src='/bmichart.png'
+              onLoad={() => setImgLoader(!imgLoader)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: 10,
+                position: "absolute",
+                top: 0,
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <CaloriesTable bmr={bmr} />
           </Grid>
         </Grid>
-        {/* </div> */}
       </Popover>
     </>
   );

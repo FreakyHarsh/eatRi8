@@ -154,8 +154,9 @@ export const Result = () => {
               <Card className={classes.card}>
                 <CardHeader title='Breakfast' />
                 <CardContent className={classes.cardContent}>
-                  {breakfast?.map((item: any) => (
+                  {breakfast?.map((item: any, index: number) => (
                     <Recipe
+                      key={"bk" + index}
                       name={item.recipe.label}
                       imageUrl={item.recipe.image}
                       recipeUrl={item.recipe.url}
@@ -169,8 +170,9 @@ export const Result = () => {
               <Card className={classes.card}>
                 <CardHeader title='Lunch' />
                 <CardContent className={classes.cardContent}>
-                  {lunch?.map((item: any) => (
+                  {lunch?.map((item: any, index: number) => (
                     <Recipe
+                      key={"lch" + index}
                       name={item.recipe.label}
                       imageUrl={item.recipe.image}
                       recipeUrl={item.recipe.url}
@@ -183,8 +185,9 @@ export const Result = () => {
               <Card className={classes.card}>
                 <CardHeader title='Dinner' />
                 <CardContent className={classes.cardContent}>
-                  {dinner?.map((item: any) => (
+                  {dinner?.map((item: any, index: number) => (
                     <Recipe
+                      key={"dnr" + index}
                       name={item.recipe.label}
                       imageUrl={item.recipe.image}
                       recipeUrl={item.recipe.url}
