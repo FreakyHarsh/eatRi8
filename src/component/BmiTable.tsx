@@ -17,36 +17,37 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name: string, requiredCalories: string) {
-  return { name, requiredCalories };
+function createData(bmi: string, weightStatus: string) {
+  return { bmi, weightStatus };
 }
 
-export default function CaloriesTable({ bmr }: { bmr: number }) {
+export default function BmiTable() {
   const classes = useStyles();
 
   const rows = [
-    createData("Little to no exercise", (bmr * 1.2).toFixed(2)),
-    createData("Light exercise (1-3 days/week)", (bmr * 1.375).toFixed(2)),
-    createData("Moderate exercise (3-5 days/week)", (bmr * 1.55).toFixed(2)),
-    createData("Heavy exercise (6-7 days/week)", (bmr * 1.725).toFixed(2)),
-    createData("Very Heavy exercise (Twice per day)", (bmr * 1.9).toFixed(2)),
+    createData("Below 18.5", "Underweight"),
+    createData("18.5-24.9", "Normal weight"),
+    createData("25.0-29.9", "Overweight"),
+    createData("30.0-34.9", "Obesity class I"),
+    createData("35.0-39.9", "Obesity class II"),
+    createData("Above 40", "Obesity class III"),
   ];
   return (
-    <TableContainer component={Paper} style={{marginTop: '1rem'}}>
+    <TableContainer component={Paper}>
       <Table aria-label='simple table' size='small' className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Exercise Level Daily</TableCell>
-            <TableCell align='right'>Kcal/day</TableCell>
+            <TableCell>BMI</TableCell>
+            <TableCell align='right'>Weight Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.bmi}>
               <TableCell component='th' scope='row'>
-                {row.name}
+                {row.bmi}
               </TableCell>
-              <TableCell align='right'>{row.requiredCalories}</TableCell>
+              <TableCell align='right'>{row.weightStatus}</TableCell>
             </TableRow>
           ))}
         </TableBody>
